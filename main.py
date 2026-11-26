@@ -17,8 +17,10 @@ ENTRY = (
 def main() -> None:
     assert 1 <= len(ENTRY) <= 120, f"entry is {len(ENTRY)} chars, must be 1-120"
     assert ENTRY.strip(), "entry must not be only whitespace"
+    assert ENTRY.isascii(), "entry must be pure ASCII"
+    assert not ENTRY.endswith("\n"), "entry must have no trailing newline"
     os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
+    with open("/output/entry.txt", "w", encoding="ascii", newline="") as f:
         f.write(ENTRY)
 
 
